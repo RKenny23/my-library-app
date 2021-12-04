@@ -31,35 +31,58 @@ class UI {
 
     // const books = myLibrary;
 
-    books.forEach((book) => UI.addBookToList(book));
+    books.forEach((book) => UI.addBookToLibrary(book));
   }
 
-  static addBookToList(book) {
-    const list = document.querySelector('#book-list');
+  static addBookToLibrary(book) {
+    // const list = document.querySelector('#book-list');
 
-    const row = document.createElement('tr');
+    // const row = document.createElement('tr');
 
-    row.innerHTML = `
-      <td>${book.title}</td>
-      <td>${book.author}</td>
-      <td><a href="#" class="btn btn-danger btn-sm 
-      delete">X</a></td>
+    // row.innerHTML = `
+    //   <td>${book.title}</td>
+    //   <td>${book.author}</td>
+    //   <td>${book.pages}</td>
+    //   <td><a href="#" class="btn btn-danger btn-sm 
+    //   delete">X</a></td>
+    // `;
+
+    // list.appendChild(row);
+
+    const container = document.querySelector('.card-container');
+
+    const div = document.createElement('div');
+
+    div.setAttribute('id', 'book-card');
+
+    div.innerHTML = `
+      <h2>${book.title}</h2>
+      <h3>by ${book.author}</h3>
+      <p>${book.pages} pages</p>
+      <a href="#" class="btn btn-delete">X</a>
     `;
 
-    list.appendChild(row);
+    container.appendChild(div);
+
+    // const image = document.createElement('img');
+
+    // image.src = '5a294e63b3bd25.1553178515126564837362.png';
+
+    // document.getElementById('#book-card').appendChild(image);
+
   }
 
   static deleteBook(el) {
-    if (el.classList.contains('delete')) {
-      el.parentElement.parentElement.remove();
+    if (el.classList.contains('btn-delete')) {
+      el.parentElement.remove();
     }
   }
-
+  // Display alert messages
   static showAlert(message, className) {
     const div = document.createElement('div');
     div.className = `alert alert-${className}`;
     div.appendChild(document.createTextNode(message));
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.form-container');
     const form = document.querySelector('#book-form');
     container.insertBefore(div, form);
     // Vanish in 3 seconds
@@ -69,6 +92,7 @@ class UI {
   static clearFields() {
     document.querySelector('#title').value = '';
     document.querySelector('#author').value = '';
+    document.querySelector('#pages').value = '';
   }
 }
 
@@ -120,18 +144,19 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
   // Get form values
   const title = document.querySelector('#title').value;
   const author = document.querySelector('#author').value;
+  const pages = document.querySelector('#pages').value;
 
   // Validate
-  if (title === '' || author === '') {
+  if (title === '' || author === '' || pages === '') {
     UI.showAlert('Please fill in all fields', 'danger');
   } else {
     // Instantiate book
-    const book = new Book(title, author);
+    const book = new Book(title, author, pages);
 
     console.log(book);
 
     // Add book to UI
-    UI.addBookToList(book);
+    UI.addBookToLibrary(book);
 
     // Add book to store
     Store.addBook(book);
@@ -145,7 +170,7 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
 });
 
 // Event: Remove a book
-document.querySelector('#book-list').addEventListener('click', (e) => {
+document.querySelector('.card-container').addEventListener('click', (e) => {
   // Remove book from UI
   UI.deleteBook(e.target);
 
@@ -155,41 +180,3 @@ document.querySelector('#book-list').addEventListener('click', (e) => {
   // Show success message
   UI.showAlert('Book Removed', 'danger');
 })
-
-
-// function addBookToLibrary() {
-//     const div = document.createElement('div');
-//     div.id = 'card';
-//     div.innerHTML = book.title;
-
-//     let book1 = new Book();
-// }
-
-// addBtn.addEventListener('click', () => {
-//     addBookToLibrary();
-//   })
-
-// document.write(myLibrary.title + ", " + myLibrary.author);
-
-
-// let bookItems = "";
-
-// for (book of myLibrary) {
-//     console.log(book.title);
-//     bookItems += "<&lt;li&gt;>" + book.title + "</&lt;li&gt;>";
-// };
-
-// bookList.innerHTML = bookItems;
-
-// function displayTitle() {
-//     document.getElementById("book-title").innerHTML = this.title;
-// }
-
-// myLibrary.displayTitle();
-
-
-
-
-
-
-// console.log(Book.returnInfo());

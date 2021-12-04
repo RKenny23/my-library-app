@@ -5,32 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Library App</title>
-    <link rel="stylesheet" href="https://bootswatch.com/5/sandstone/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container mt-4">
-      <h1 class="display-4 text-center">My Library</h1>
+    <h1><div class="trim"><img src="book.png" alt=""></div>My Library</h1>
+    <div class="form-container">
       <form id="book-form">
         <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" id="title" class="form-control" />
+          <label for="title">Title</label>
+          <input type="text" id="title" class="form-control" />
         </div>
         <div class="form-group">
-            <label for="author">Author</label>
-            <input type="text" id="author" class="form-control" />
+          <label for="author">Author</label>
+          <input type="text" id="author" class="form-control" />
         </div>
-        <input type="submit" value="Add Book" class="btn btn-primary btn-block">
+        <div class="form-group">
+          <label for="pages">Pages</label>
+          <input type="text" id="pages" class="form-control" />
+        </div>
+        <div class="form-group-flex">
+          <label for="read">Have you read it?</label><br>
+          <input type="checkbox" id="read" value="true">
+        </div>
+        <input type="submit" value="Add Book" class="btn btn-primary" />
       </form>
-      <table class="table tabled-striped">
-          <thead>
-              <tr>
-                  <th>Title</th>
-                  <th>Author</th>
-              </tr>
-          </thead>
-          <tbody id="book-list"></tbody>
-      </table>
     </div>
+    <div class="card-container"></div>
     <script src="app.js"></script>
   </body>
 </html>
