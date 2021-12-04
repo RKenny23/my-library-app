@@ -5,7 +5,7 @@ class Book {
     this.pages = pages;
     this.read = read;
     this.returnInfo = function() {
-        return(`${title} by ${author}, ${pages} pages, ${read}`);
+        return(`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`);
       }
     }
 }
@@ -33,6 +33,12 @@ class UI {
 
     books.forEach((book) => UI.addBookToLibrary(book));
   }
+  
+  // Display checkmark image
+  // static displayCheckmark() {
+
+  // }
+
 
   static addBookToLibrary(book) {
     // const list = document.querySelector('#book-list');
@@ -56,19 +62,22 @@ class UI {
     div.setAttribute('id', 'book-card');
 
     div.innerHTML = `
-      <h2>${book.title}</h2>
-      <h3>by ${book.author}</h3>
-      <p>${book.pages} pages</p>
-      <a href="#" class="btn btn-delete">X</a>
+    <h2>${book.title}</h2>
+    <h3>by ${book.author}</h3>
+    <p>${book.pages}</p>
+    <a href="#" class="btn btn-delete">X</a>
     `;
 
     container.appendChild(div);
 
-    // const image = document.createElement('img');
+    const image = document.createElement('img');
+    image.className = 'check';
+    image.src = 'checkmark.png';
 
-    // image.src = '5a294e63b3bd25.1553178515126564837362.png';
 
-    // document.getElementById('#book-card').appendChild(image);
+    if (document.querySelector('#read').checked === true) {
+      div.appendChild(image); 
+    }
 
   }
 
@@ -93,6 +102,7 @@ class UI {
     document.querySelector('#title').value = '';
     document.querySelector('#author').value = '';
     document.querySelector('#pages').value = '';
+    document.querySelector('#read').checked = false;
   }
 }
 
@@ -117,11 +127,11 @@ class Store {
     localStorage.setItem('books', JSON.stringify(books));
   }
 
-  static removeBook(title) {
+  static removeBook(pages) {
     const books = Store.getBooks();
 
     books.forEach((book, index) => {
-      if (book.title === title) {
+      if (book.pages === pages) {
         books.splice(index, 1);
       }
     });
@@ -145,13 +155,14 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
   const title = document.querySelector('#title').value;
   const author = document.querySelector('#author').value;
   const pages = document.querySelector('#pages').value;
+  const read = document.querySelector('#read').value;
 
   // Validate
   if (title === '' || author === '' || pages === '') {
     UI.showAlert('Please fill in all fields', 'danger');
   } else {
     // Instantiate book
-    const book = new Book(title, author, pages);
+    const book = new Book(title, author, pages, read);
 
     console.log(book);
 
@@ -175,8 +186,8 @@ document.querySelector('.card-container').addEventListener('click', (e) => {
   UI.deleteBook(e.target);
 
   // Remove book from Store
-  Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
+  Store.removeBook(e.target.previousElementSibling.textContent);
 
   // Show success message
-  UI.showAlert('Book Removed', 'danger');
+  UI.showAlert('Book Removed', 'success');
 })
