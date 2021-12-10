@@ -12,33 +12,10 @@ class Book {
 
 class UI {
   static displayBooks() {
-    // const myLibrary = [
-    //   {
-    //       title: 'Poopy',
-    //       author: 'John King',
-    //       pages: 765,
-    //       read: false
-    //   },
-    //   {
-    //       title: 'Nice Ways',
-    //       author: 'Ramona Shindig',
-    //       pages: 214,
-    //       read: true
-    //   },
-    // ];
-
     const books = Store.getBooks();
-
-    // const books = myLibrary;
 
     books.forEach((book) => UI.addBookToLibrary(book));
   }
-  
-  // Display checkmark image
-  // static displayCheckmark() {
-
-  // }
-
 
   static addBookToLibrary(book) {
     // const list = document.querySelector('#book-list');
@@ -65,19 +42,19 @@ class UI {
     <h2>${book.title}</h2>
     <h3>by ${book.author}</h3>
     <p>${book.pages}</p>
+    <p>${book.read}</p>
     <a href="#" class="btn btn-delete">X</a>
     `;
 
     container.appendChild(div);
 
-    const image = document.createElement('img');
-    image.className = 'check';
-    image.src = 'checkmark.png';
+    // const image = document.createElement('img');
+    // image.className = 'check';
+    // image.src = 'checkmark.svg';
 
-
-    if (document.querySelector('#read').checked === true) {
-      div.appendChild(image); 
-    }
+    // if (document.querySelector('#read').checked === true) {
+    //   div.appendChild(image); 
+    // }
 
   }
 
@@ -155,7 +132,7 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
   const title = document.querySelector('#title').value;
   const author = document.querySelector('#author').value;
   const pages = document.querySelector('#pages').value;
-  const read = document.querySelector('#read').value;
+  const read = document.querySelector('#read').checked;
 
   // Validate
   if (title === '' || author === '' || pages === '') {

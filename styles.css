@@ -243,6 +243,7 @@ input#read {
 }
 
 .check {
+  fill: #325d88;
   position: absolute;
   width: 150px;
   top: 105px;
